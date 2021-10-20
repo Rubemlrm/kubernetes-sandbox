@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: hello-deployment
+  name: hello-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: hello-deployment
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: hello-deployment
+    spec:
+      containers:
+        - image: hashicorp/http-echo
+          name: http-echo
+          args:
+            - "-text={MESSAGE}"
+          envFrom:
+            - configMapRef:
+                name: hello-deployment-config
+          resources:
+            requests:
+              memory: "100Mi"
+              cpu: "0.5"
+            limits:
+              memory: "200Mi"
+              cpu: "1"
+        - image: busybox
+          name: logger
+          args:
+            [
+              "/bin/sh",
+              "-c",
+              'i=0; while true; do echo "$i: $(date)" > /var/log/logger/$(date); i=$((i+1)); sleep 60; done',
+            ]
+          resources:
+            requests:
+              memory: "100Mi"
+              cpu: "0.5"
+            limits:
+              memory: "200Mi"
+              cpu: "1"
+          volumeMounts:
+            - mountPath: /var/log/logger/
+              name: log
+      volumes:
+        - name: log
+          persistentVolumeClaim:
+            claimName: hello-deployment-volume-claim
