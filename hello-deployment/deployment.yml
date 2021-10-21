@@ -9,17 +9,17 @@ spec:
   selector:
     matchLabels:
       app: hello-deployment
+      run: hello-deployment
   strategy: {}
   template:
     metadata:
       labels:
         app: hello-deployment
+        run: hello-deployment
     spec:
       containers:
-        - image: hashicorp/http-echo
-          name: http-echo
-          args:
-            - "-text={MESSAGE}"
+        - image: nginx
+          name: nginx
           envFrom:
             - configMapRef:
                 name: hello-deployment-config
@@ -30,6 +30,8 @@ spec:
             limits:
               memory: "200Mi"
               cpu: "1"
+          ports:
+            - containerPort: 80
         - image: busybox
           name: logger
           args:
