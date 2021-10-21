@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: syncthing-deployment-service
+spec:
+  selector:
+    app: syncthing
+  ports:
+    - port: 8384
+      protocol: TCP
+      targetPort: 8384
+      name: webgui
+    - port: 22000
+      protocol: TCP
+      targetPort: 22000
+      name: sync-primary-tcp
+    - port: 22000
+      protocol: UDP
+      targetPort: 22000
+      name: sync-primary-udp
+    - port: 21027
+      protocol: UDP
+      targetPort: 21027
+      name: sync-discovery-udp
+  type: NodePort

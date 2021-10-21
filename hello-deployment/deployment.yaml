@@ -5,7 +5,7 @@ metadata:
     app: hello-deployment
   name: hello-deployment
 spec:
-  replicas: 3
+  replicas: 2
   selector:
     matchLabels:
       app: hello-deployment
@@ -26,10 +26,10 @@ spec:
           resources:
             requests:
               memory: "100Mi"
-              cpu: "0.5"
+              cpu: "0.1"
             limits:
               memory: "200Mi"
-              cpu: "1"
+              cpu: "0.2"
           ports:
             - containerPort: 80
         - image: busybox
@@ -43,10 +43,10 @@ spec:
           resources:
             requests:
               memory: "100Mi"
-              cpu: "0.5"
+              cpu: "0.1"
             limits:
               memory: "200Mi"
-              cpu: "1"
+              cpu: "0.2"
           volumeMounts:
             - mountPath: /var/log/logger/
               name: log

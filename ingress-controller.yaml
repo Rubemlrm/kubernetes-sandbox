@@ -1,0 +1,40 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: sandbox-ingress
+  labels:
+    name: sandbox-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /hello-deployment
+            pathType: Prefix
+            backend:
+              service:
+                name: hello-deployment-service
+                port:
+                  number: 80
+          - path: /syncthing
+            pathType: Prefix
+            backend:
+              service:
+                name: syncthing-deployment-service
+                port:
+                  number: 8384
+          - path: /prometheus
+            pathType: Prefix
+            backend:
+              service:
+                name: prometheus
+                port:
+                  number: 30909
+          - path: /grafana
+            pathType: Prefix
+            backend:
+              service:
+                name: grafana-np
+                port:
+                  number: 3000

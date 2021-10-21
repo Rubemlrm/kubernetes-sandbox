@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: syncthing
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: syncthing
+  template:
+    metadata:
+      labels:
+        app: syncthing
+    spec:
+      containers:
+        - name: syncthing-box
+          image: lscr.io/linuxserver/syncthing
+          imagePullPolicy: Always
+          resources:
+            requests:
+              cpu: "0.25"
+              memory: 500Mi
+            limits:
+              memory: "1024Mi"
+              cpu: "0.4"
+          volumeMounts:
+            - name: config-data
+              mountPath: /config
+            - name: data-volume
+              mountPath: /data1
+      volumes:
+        - name: config-data
+          persistentVolumeClaim:
+            claimName: syncthing-config-claim
+        - name: data-volume
+          persistentVolumeClaim:
+            claimName: syncthing-volume-claim

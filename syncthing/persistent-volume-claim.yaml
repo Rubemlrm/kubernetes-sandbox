@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: syncthing-config-claim
+spec:
+  storageClassName: manual
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 100Mi
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: syncthing-volume-claim
+spec:
+  storageClassName: manual
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 20Gi
