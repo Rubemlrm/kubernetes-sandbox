@@ -1,0 +1,26 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: hello-deployment-cronjob
+spec:
+  schedule: "*/5 * * * * "
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: cleaner
+              image: busybox
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - find /var/logger -maxdepth 1 -mmin +2 -type f
+              volumeMounts:
+                - mountPath: /var/logger
+                  name: log
+          volumes:
+            - name: log
+              persistentVolumeClaim:
+                claimName: hello-deployment-volume-claim
+          restartPolicy: OnFailure
