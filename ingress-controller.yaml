@@ -8,30 +8,41 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
-    - http:
+    - host: web.local
+      http:
         paths:
-          - path: /hello-deployment
+          - path: /
             pathType: Prefix
             backend:
               service:
                 name: hello-deployment-service
                 port:
                   number: 80
-          - path: /syncthing
+    - host: syncthing.local
+      http:
+        paths:
+          - path: /
             pathType: Prefix
             backend:
               service:
                 name: syncthing-deployment-service
                 port:
                   number: 8384
-          - path: /prometheus
+    - host: prometheus.local
+      http:
+        paths:
+          - path: /
             pathType: Prefix
             backend:
               service:
-                name: prometheus
+                name: prometheus-server-np
                 port:
-                  number: 30909
-          - path: /grafana
+                  number: 80
+
+    - host: grafana.local
+      http:
+        paths:
+          - path: /
             pathType: Prefix
             backend:
               service:
