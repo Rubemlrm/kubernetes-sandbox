@@ -4,3 +4,4 @@ data:
 kind: ConfigMap
 metadata:
   name: hello-deployment-config
+  namespace: hello-deployment

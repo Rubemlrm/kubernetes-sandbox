@@ -2,6 +2,7 @@ apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: syncthing-config-volume
+  namespace: syncthing
   labels:
     app: app
 spec:
@@ -22,6 +23,7 @@ apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: syncthing-data-volume
+  namespace: syncthing
   labels:
     app: app
 spec:

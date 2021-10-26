@@ -4,8 +4,6 @@ metadata:
   name: sandbox-ingress
   labels:
     name: sandbox-ingress
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
     - host: web.local
@@ -15,6 +13,7 @@ spec:
             pathType: Prefix
             backend:
               service:
+                namespace: hello-deployment
                 name: hello-deployment-service
                 port:
                   number: 80
