@@ -65,8 +65,8 @@ data:
           target_label: job
 kind: ConfigMap
 metadata:
-  creationTimestamp: "2021-10-21T16:35:35Z"
+  creationTimestamp: "2021-10-26T09:25:25Z"
   name: prometheus-config
   namespace: default
-  resourceVersion: "13591"
-  uid: cc81491b-7cee-4a65-8618-cd1fd572c695
+  resourceVersion: "1561"
+  uid: cb312e92-40e9-436d-9a9f-620da113e524

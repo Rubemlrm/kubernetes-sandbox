@@ -17,7 +17,7 @@ metadata:
   annotations:
     meta.helm.sh/release-name: grafana
     meta.helm.sh/release-namespace: default
-  creationTimestamp: "2021-10-21T17:06:07Z"
+  creationTimestamp: "2021-10-26T09:25:24Z"
   labels:
     app.kubernetes.io/instance: grafana
     app.kubernetes.io/managed-by: Helm
@@ -26,5 +26,5 @@ metadata:
     helm.sh/chart: grafana-6.17.2
   name: grafana
   namespace: default
-  resourceVersion: "14293"
-  uid: 200cf08d-ecc9-4d2c-bf93-67d2b045d1e3
+  resourceVersion: "1525"
+  uid: 33f472f1-24c2-41e0-bff9-677f4e56ec62
