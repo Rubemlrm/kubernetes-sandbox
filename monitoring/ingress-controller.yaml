@@ -5,8 +5,13 @@ metadata:
   namespace: monitoring
   labels:
     name: sandbox-ingress
-
+  annotations:
+    kubernetes.io/ingress.class: monitoring-ingress
 spec:
+  tls:
+    - hosts:
+        - grafana.local
+      secretName: cert-grafana
   rules:
     - host: prometheus.local
       http:
@@ -15,9 +20,9 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: prometheus-server-np
+                name: prometheus-operated
                 port:
-                  number: 80
+                  number: 9090
 
     - host: grafana.local
       http:
@@ -28,4 +33,4 @@ spec:
               service:
                 name: monitoring-grafana
                 port:
-                  number: 3000
+                  number: 80
