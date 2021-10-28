@@ -12,6 +12,7 @@ spec:
     metadata:
       labels:
         app: syncthing
+        target: backend
     spec:
       containers:
         - name: syncthing-box
@@ -29,6 +30,8 @@ spec:
               mountPath: /config
             - name: data-volume
               mountPath: /data1
+      nodeSelector:
+        target: backend
       volumes:
         - name: config-data
           persistentVolumeClaim:

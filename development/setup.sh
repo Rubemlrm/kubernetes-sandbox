@@ -2,6 +2,8 @@
 set -euo pipefail
 IFS=$'\n\t'
 
+kubectl config use-context kind-development-cluster
+
 echo "Adding helm needed repositories"
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
 helm repo add grafana https://grafana.github.io/helm-charts
@@ -10,16 +12,15 @@ helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
 helm repo update
 
 echo "Taint nodes"
-kubernetes taint nodes kind-worker target=backend:NoSchedule
-kubernetes taint nodes kind-worker3 target=backend:NoSchedule
-kubernetes taint nodes kind-worker6 target=backend:NoSchedule
-kubernetes taint nodes kind-worker2 target=frontend:NoSchedule
-kubernetes taint nodes kind-worker4 target=frontend:NoSchedule
-kubernetes taint nodes kind-worker5 target=frontend:NoSchedule
+kubectl taint nodes development-cluster-worker target=backend:NoSchedule
+kubectl taint nodes development-cluster-worker2 target=frontend:NoSchedule
+kubectl taint nodes development-cluster-worker3 target=backend:NoSchedule
+
+kubectl label nodes development-cluster-worker target=backend
+kubectl label nodes development-cluster-worker2 target=frontend
+kubectl label nodes development-cluster-worker3 target=backend
 
 echo "Create namespaces"
-kubectl create namespace syncthing
-kubectl create namespace hello-deployment
 kubectl create namespace monitoring
 
 
@@ -36,7 +37,3 @@ helm install \
 echo "Setup services"
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml
 sleep 40
-
-kubectl create -f hello-deployment
-kubectl create -f syncthing
-kubectl create -f monitoring
