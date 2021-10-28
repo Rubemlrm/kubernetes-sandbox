@@ -30,8 +30,15 @@ spec:
               mountPath: /config
             - name: data-volume
               mountPath: /data1
-      nodeSelector:
-        target: backend
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: target
+                operator: In
+                values:
+                - backend
       volumes:
         - name: config-data
           persistentVolumeClaim:

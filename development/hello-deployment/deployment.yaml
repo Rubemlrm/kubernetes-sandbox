@@ -17,6 +17,7 @@ spec:
       labels:
         app: hello-deployment
         run: hello-deployment
+        target: frontend
     spec:
       containers:
         - image: nginx

@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: lounge-irc-ingress
+  namespace: lounge-irc
+  labels:
+    name: lounge-irc-ingress
+spec:
+  rules:
+    - host: lounge.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: lounge-irc-service
+                port:
+                  number: 5000
