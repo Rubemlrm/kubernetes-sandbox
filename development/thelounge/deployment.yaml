@@ -18,6 +18,8 @@ spec:
         run: lounge-irc
         target: frontend
     spec:
+      securityContext:
+        runAsUser: 1001
       containers:
         - image: thelounge/thelounge:4.2.0-alpine
           name: lounge-irc
