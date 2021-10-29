@@ -1,0 +1,28 @@
+# This is a basic workflow to help you get started with Actions
+
+name: LINTERS
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the main branch
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  kind_cluster:
+    runs-on: ubuntu-latest
+    name: Create Kind Cluster
+    steps:
+      - uses: actions/checkout@v2.3.2
+      - name: Create k8s Kind Cluster
+        uses: helm/kind-action@v1.2.0
+        with:
+          config: ./development/kind-config.yaml
+          cluster_name: development-cluster
+      - name: setup nodes
+        run: bash development/bootstrap.sh
+      - name: deploy services
+        run: bash development/deploy.sh
