@@ -11,10 +11,10 @@ helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
 helm repo update
 
 echo "Taint nodes"
-kubectl taint nodes development-cluster-m02 target=backend:NoSchedule
-kubectl taint nodes development-cluster-m03 target=frontend:NoSchedule
+kubectl taint nodes development-cluster-worker2 target=backend:NoSchedule
+kubectl taint nodes development-cluster-worker3 target=frontend:NoSchedule
 
 
-kubectl label nodes development-cluster-m02 target=backend
-kubectl label nodes development-cluster-m03 target=frontend
+kubectl label nodes development-cluster-worker2 target=backend
+kubectl label nodes development-cluster-worker3 target=frontend
 

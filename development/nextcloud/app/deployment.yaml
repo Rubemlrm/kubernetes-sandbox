@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nextcloud-app
+  namespace: nextcloud
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nextcloud-app
+  template:
+    metadata:
+      labels:
+        app: nextcloud-app
+    spec:
+      containers:
+      - name: nextcloud-app
+        image: nextcloud:22.2.0-fpm
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: 400m
+            memory: 1024Mi
+        ports:
+        - containerPort: 80

@@ -18,7 +18,3 @@ nodes:
   - role: worker
   - role: worker
   - role: worker
-networking:
-  podSubnet: 10.241.0.0/16
-  serviceSubnet: 10.111.0.0/16
-  disableDefaultCNI: true

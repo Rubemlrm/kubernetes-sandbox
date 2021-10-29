@@ -5,12 +5,11 @@ metadata:
   namespace: monitoring
   labels:
     name: sandbox-ingress
-  annotations:
-    kubernetes.io/ingress.class: monitoring-ingress
 spec:
   tls:
     - hosts:
         - grafana.local
+        - prometheus.local
       secretName: cert-grafana
   rules:
     - host: prometheus.local

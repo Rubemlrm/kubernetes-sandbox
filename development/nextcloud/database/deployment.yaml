@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nextcloud-database
+  namespace: nextcloud
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nextcloud-database
+  template:
+    metadata:
+      labels:
+        app: nextcloud-database
+    spec:
+      containers:
+      - name: nextcloud-database
+        image: postgres:9.6.23-stretch
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: 100m
+            memory: 200Mi
+        env:
+          - name: POSTGRES_DB
+            valueFrom:
+              secretKeyRef:
+                key: POSTGRES_DB
+                name: nextcloud-database-secret
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: POSTGRES_PASSWORD
+                name: nextcloud-database-secret
+          - name: POSTGRES_USER
+            valueFrom:
+              secretKeyRef:
+                key: POSTGRES_USER
+                name: nextcloud-database-secret
+        ports:
+        - containerPort: 5432
+        volumeMounts:
+        - name: database-storage
+          mountPath: /var/lib/postgresql/data
+      volumes:
+      - name: database-storage
+        persistentVolumeClaim:
+          claimName: nextcloud-database-volume-claim
