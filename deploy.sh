@@ -13,7 +13,7 @@ fileToApply=(
               "network-policy"
               "ingress-controller"
             )
-for folder in $(find "$(pwd)/development" -type d -mindepth 1 -maxdepth 1); do
+for folder in $(find "$(pwd)/services" -type d -mindepth 1 -maxdepth 1); do
     for fileName in ${fileToApply[@]}; do
         file="$folder/$fileName.yaml"
         if test -f "$file"; then
