@@ -24,5 +24,12 @@ done
 
 echo "Installing needed charts"
 kubectl create namespace monitoring
-helm install monitoring prometheus-community/kube-prometheus-stack --namespace monitoring
+kubectl create namespace sonarqube
+kubectl create namespace gitlab
 
+helm install monitoring prometheus-community/kube-prometheus-stack --namespace monitoring
+helm upgrade --install -n gitlab gitlab gitlab/gitlab \
+  --timeout 600s \
+  --set global.hosts.domain=gitlab.com \
+  --set certmanager-issuer.email=teste@teste.pt
+helm upgrade --install -n sonarqube sonarqube sonarqube/sonarqube
